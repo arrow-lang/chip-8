@@ -3,8 +3,8 @@ import state_ from "./state";
 import stack from "./stack";
 
 export let table = [
-  op_0___,  // 0x0
-  op_1nnn,  // 0x1
+  op_unkn,  // 0x0
+  op_unkn,  // 0x1
   op_unkn,  // 0x2
   op_unkn,  // 0x3
   op_unkn,  // 0x4
