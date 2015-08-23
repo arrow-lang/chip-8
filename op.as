@@ -1,3 +1,4 @@
+import libc from "../arrow/lib/libc";
 import state_ from "./state";
 import stack from "./stack";
 
@@ -46,8 +47,9 @@ def get_address(opcode: *byte) -> uint16 {
 // TODO(arrow): Some way to indicate divergence
 def op_unkn(mutable state: state_.State, opcode: *byte) {
   // Report unknown opcode and abort
-  libc.printf("unknown opcode: 0x%02x0x%02x\n",
-    *opcode, *(opcode + 1));
+  libc.puts("unknown opcode");
+  // TODO: libc.printf("unknown opcode: 0x%02x0x%02x\n",
+  //   *opcode, *(opcode + 1));
 
   libc.abort();
 }
@@ -66,7 +68,7 @@ def op_0___(mutable state: state_.State, opcode: *byte) {
   if (address == 0x0E0) { return op_00E0(state); }
   if (address == 0x0EE) { return op_00EE(state); }
   if (address == 0x230) { return op_0230(state); }
-  return op_unkn();
+  return op_unkn(state, opcode);
 }
 
 /// CLS [00E0]
@@ -91,7 +93,7 @@ def op_00EE(mutable state: state_.State) {
   // NOTE: The stack is only 16 "slots".
 
   state.sp = 0xF if (state.sp == 0) else (state.sp - 1);
-  state.pc = stack.at(state.stack, state.sp);
+  // TODO: state.pc = stack.at(state.stack, state.sp);
 }
 
 /// JP addr [1nnn]
